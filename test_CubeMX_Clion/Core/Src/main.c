@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32f1xx_hal_rcc.h"
+#include "ssd1306.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,6 +86,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+    I2C_HandleTypeDef i2CHandleTypeDef = {0};
+    OLED_Init(i2CHandleTypeDef);
+    OLED_DrawChar(2, 2, 'a');
+    OLED_Refresh();
 
     // reset GPIO A PIN 0
     int i = 0;

@@ -53,7 +53,8 @@ include_directories(Core/Inc
         Drivers/STM32F1xx_HAL_Driver/Inc
         Drivers/STM32F1xx_HAL_Driver/Inc/Legacy
         Drivers/CMSIS/Device/ST/STM32F1xx/Include
-        Drivers/CMSIS/Include)
+        Drivers/CMSIS/Include
+        3rdParty/stm32_hal_i2c_ssd1306)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB)
 
@@ -65,7 +66,14 @@ add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR
 add_link_options(-mcpu=cortex-m3 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT}
+        3rdParty/stm32f1xx_hal_driver/Inc/stm32f1xx_hal_i2c.h
+        3rdParty/stm32f1xx_hal_driver/Src/stm32f1xx_hal_i2c.c
+        3rdParty/stm32_hal_i2c_ssd1306/Font_ASCII.c
+        3rdParty/stm32_hal_i2c_ssd1306/FontLib.h
+        3rdParty/stm32_hal_i2c_ssd1306/ssd1306.h
+        3rdParty/stm32_hal_i2c_ssd1306/ssd1306.c
+        )
 
 # for pure c++ test
 add_executable(AlarmTest Core/Src/AlarmInitializer.cpp Core/Inc/AlarmInitializer.h)
